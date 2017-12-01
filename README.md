@@ -1,5 +1,5 @@
 # PHP_Photo_colouring_NN
-
+https://habrastorage.org/webt/ug/ab/8p/ugab8prmwfgqhfokxzpgah8imni.png
 1. Общие сведения
 2. Назначение и цели создания (развития) системы
 3. Характеристика объектов автоматизации
