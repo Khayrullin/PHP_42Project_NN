@@ -1,5 +1,5 @@
 # PHP_Photo_colouring_NN
-
+![alt text](https://habrastorage.org/webt/ug/ab/8p/ugab8prmwfgqhfokxzpgah8imni.png)
 1. Общие сведения
 2. Назначение и цели создания (развития) системы
 3. Характеристика объектов автоматизации
@@ -140,7 +140,7 @@
 8. Осовский С. Нейронные сети для обработки информации.
 9. Харт П., Дуда Р. Распознавание образов и анализ сцен.
 10. Змитрович А. Интеллектуальные информационные системы.
-11.https://habrahabr.ru/company/nixsolutions/blog/342388/
+# 11.https://habrahabr.ru/company/nixsolutions/blog/342388/
 
 
 
