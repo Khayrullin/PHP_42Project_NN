@@ -48,22 +48,28 @@ abstract class Layer
 //XmlDocument memory_doc = new XmlDocument();
 //memory_doc.Load($"{type}_memory.xml");
 //XmlElement memory_el = memory_doc.DocumentElement;
-//switch (mm)
-//{
-//case MemoryMode.GET:
-//for (int l = 0; l < _weights.GetLength(0); ++l)
-//for (int k = 0; k < _weights.GetLength(1); ++k)
-//_weights[l, k] = double.Parse(memory_el.ChildNodes.Item(k + _weights.GetLength(1) * l).InnerText.Replace(',', '.'), System.Globalization.CultureInfo.InvariantCulture);//parsing stuff
-//break;
-//case MemoryMode.SET:
-//for (int l = 0; l < Neurons.Length; ++l)
-//for (int k = 0; k < numofprevneurons; ++k)
-//memory_el.ChildNodes.Item(k + numofprevneurons * l).InnerText = Neurons[l].Weights[k].ToString();
-//break;
-//}
+        switch ($mm) {
+            case MemoryMode::GET:
+                for ($l = 0; $l < _weights . GetLength(0); ++$l) {
+                    for ($k = 0; $k < _weights . GetLength(1); ++$k) {
+//                        $_weights[$l][$k] = double . Parse(memory_el . ChildNodes . Item(k + _weights . GetLength(1) * l) . InnerText . Replace(',',
+//                                    '.'), System . Globalization . CultureInfo . InvariantCulture);
+                    }
+                }
+                break;
+            case MemoryMode::SET:
+                for ($l = 0; $l < sizeof($this->neurons); ++$l) {
+                    for ($k = 0; $k < $this->numofprevneurons; ++$k) {
+                        //memory_el . ChildNodes . Item(k + numofprevneurons * l) . InnerText = Neurons[l] . Weights[k] . ToString();
+                    }
+                }
+                break;
+        }
 //memory_doc.Save($"{type}_memory.xml");
-//            WriteLine($"{type} weights have been initialized...");
-        return _weights;
+        print_r("$type weights have been initialized...");
+        {
+            return _weights;
+        }
     }
 
 
