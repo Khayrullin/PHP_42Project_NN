@@ -33,12 +33,12 @@ class Neuron
         $this->_inputs[$key] = $value;
     }
 
-    public function Output()
+    public function output()
     {
-        return $this->Activator($this->_inputs, $this->_weights);
+        return $this->activator($this->_inputs, $this->_weights);
     }
 
-    private function Activator($i, $w)
+    private function activator($i, $w)
     {
         $sum = 0;
         for ($l = 0; $l < count($i); $l++) {
@@ -47,15 +47,13 @@ class Neuron
         return pow(1 + exp(0 - $sum), -1);
     }
 
-    public function Derivativator($outsignal)
+    public function derivativator($outsignal)
     {
         return $outsignal * (1 - $outsignal);
     }
 
-    public function Gradientor($error, $dif, $g_sum)
+    public function gradientor($error, $dif, $g_sum)
     {
         return ($this->_type == NeuronType::Output) ? $error * $dif : $g_sum * $dif;
     }
 }
-
-?>

@@ -6,7 +6,16 @@ abstract class Layer
     protected $numofneurons;
     protected $numofprevneurons;
     private $neurons;
-    private $data;
+
+    /**
+     * @param mixed $data
+     */
+    public function setData($data)
+    {
+        for ($i = 0; $i < sizeof($this->neurons); ++$i) {
+            $this->neurons[$i] = $data;
+        }
+    }
 
     public function __construct($non, $nopn, NeuronType $nt, $type)
     {
@@ -45,6 +54,7 @@ abstract class Layer
     {
         $_weights = array(array(), array());
         print_r("$type weights are being initialized...");
+        //TODO: Need to add Xml parcer. Switch the code commented below to php style. Just do it.
         //XmlDocument memory_doc = new XmlDocument();
         //memory_doc.Load($"{type}_memory.xml");
         //XmlElement memory_el = memory_doc.DocumentElement;
@@ -67,7 +77,7 @@ abstract class Layer
         //memory_doc.Save($"{type}_memory.xml");
         print_r("$type weights have been initialized...");
         {
-            return _weights;
+            return $_weights;
         }
     }
 
