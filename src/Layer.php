@@ -14,7 +14,7 @@ abstract class Layer
             $this->numofneurons = $non;
             $this->numofprevneurons = $nopn;
             $this->setNeurons(array());
-            $weights = $this->WeightInitialize(new MemoryMode(1), $type);
+            $weights = $this->WeightInitialize(MemoryMode::GET, $type);
             for ($i = 0; $i < $non; ++$i) {
                 $temp_weights = array();
                 for ($j = 0; $j < $nopn; ++$j) {
@@ -41,19 +41,18 @@ abstract class Layer
         $this->neurons = $neurons;
     }
 
-    public function WeightInitialize(MemoryMode $mm, $type)
+    public function WeightInitialize($mm, $type)
     {
         $_weights = array(array(), array());
         print_r("$type weights are being initialized...");
-//XmlDocument memory_doc = new XmlDocument();
-//memory_doc.Load($"{type}_memory.xml");
-//XmlElement memory_el = memory_doc.DocumentElement;
+        //XmlDocument memory_doc = new XmlDocument();
+        //memory_doc.Load($"{type}_memory.xml");
+        //XmlElement memory_el = memory_doc.DocumentElement;
         switch ($mm) {
             case MemoryMode::GET:
-                for ($l = 0; $l < _weights . GetLength(0); ++$l) {
-                    for ($k = 0; $k < _weights . GetLength(1); ++$k) {
-//                        $_weights[$l][$k] = double . Parse(memory_el . ChildNodes . Item(k + _weights . GetLength(1) * l) . InnerText . Replace(',',
-//                                    '.'), System . Globalization . CultureInfo . InvariantCulture);
+                for ($l = 0; $l < sizeof($_weights[0]); ++$l) {
+                    for ($k = 0; $k < sizeof($_weights[1]); ++$k) {
+//                        $_weights[$l][$k] = double . Parse(memory_el . ChildNodes . Item(k + _weights . GetLength(1) * l) . InnerText . Replace(',','.'), System . Globalization . CultureInfo . InvariantCulture);
                     }
                 }
                 break;
@@ -65,12 +64,16 @@ abstract class Layer
                 }
                 break;
         }
-//memory_doc.Save($"{type}_memory.xml");
+        //memory_doc.Save($"{type}_memory.xml");
         print_r("$type weights have been initialized...");
         {
             return _weights;
         }
     }
+
+    abstract public function Recognize(Network $net, Layer $nextLayer);//для прямых проходов
+
+    abstract public function BackwardPass($stuff);//и обратных
 
 
 }
