@@ -8,5 +8,5 @@
 
 class Network
 {
-
+public $fact = array(0,0);
 }

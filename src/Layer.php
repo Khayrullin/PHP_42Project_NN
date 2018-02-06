@@ -8,7 +8,7 @@ abstract class Layer
     const LEARNINGRATE = 0.1;
     protected $numofneurons;
     protected $numofprevneurons;
-    private $neurons;
+    protected $neurons;
 
     /**
      * @param mixed $data
@@ -85,9 +85,9 @@ abstract class Layer
         }
     }
 
-    abstract public function Recognize(Network $net, Layer $nextLayer);//для прямых проходов
+    abstract public function recognize(Network $net, Layer $nextLayer);//для прямых проходов
 
-    abstract public function BackwardPass($stuff);//и обратных
+    abstract public function backwardPass($stuff);//и обратных
 
 
 }
