@@ -1,4 +1,7 @@
 <?php
+include "C:\Users\habar\PhpstormProjects\PHP_Photo_colouring_NN\src\Memory\hidden_layer_memory.xml";
+include "C:\Users\habar\PhpstormProjects\PHP_Photo_colouring_NN\src\Memory\output_layer_memory.xml";
+
 
 abstract class Layer
 {
@@ -54,27 +57,28 @@ abstract class Layer
     {
         $_weights = array(array(), array());
         print_r("$type weights are being initialized...");
-        //TODO: Need to add Xml parcer. Switch the code commented below to php style. Just do it.
-        //XmlDocument memory_doc = new XmlDocument();
-        //memory_doc.Load($"{type}_memory.xml");
-        //XmlElement memory_el = memory_doc.DocumentElement;
+        $memory_doc = simplexml_load_file("$type" . "_memory.xml");
+        $memory_el = new SimpleXMLElement($memory_doc);
+        $index = 0;
         switch ($mm) {
             case MemoryMode::GET:
-                for ($l = 0; $l < sizeof($_weights[0]); ++$l) {
-                    for ($k = 0; $k < sizeof($_weights[1]); ++$k) {
-//                        $_weights[$l][$k] = double . Parse(memory_el . ChildNodes . Item(k + _weights . GetLength(1) * l) . InnerText . Replace(',','.'), System . Globalization . CultureInfo . InvariantCulture);
+                for ($l = 0; $l < $this->numofneurons; ++$l) {
+                    for ($k = 0; $k < $this->numofprevneurons; ++$k) {
+                        $_weights[$l][$k] = $memory_el->children()[$index];
+                        $index += 1;
                     }
                 }
                 break;
             case MemoryMode::SET:
                 for ($l = 0; $l < sizeof($this->neurons); ++$l) {
                     for ($k = 0; $k < $this->numofprevneurons; ++$k) {
-                        //memory_el . ChildNodes . Item(k + numofprevneurons * l) . InnerText = Neurons[l] . Weights[k] . ToString();
+     //                   $memory_el = 0;
+                        $index += 1;
                     }
                 }
                 break;
         }
-        //memory_doc.Save($"{type}_memory.xml");
+        $memory_doc->saveXML($memory_el);
         print_r("$type weights have been initialized...");
         {
             return $_weights;
