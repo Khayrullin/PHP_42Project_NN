@@ -3,16 +3,7 @@
 class OutputLayer extends Layer
 {
 
-    /**
-     * OutputLayer constructor.
-     * @param $non
-     * @param $nopn
-     * @param NeuronType $nt
-     * @param $type
-     */
-    public function __construct($non, $nopn, NeuronType $nt, $type)
-    {
-    }
+
 
     public function recognize(Network $net, Layer $nextLayer)
     {
@@ -27,7 +18,7 @@ class OutputLayer extends Layer
             {
                 $sum = 0;
                 for ($k = 0; $k < sizeof($this->neurons); ++$k)
-                    $sum += $this->neurons[$k]->getWeight()[$j] *
+                    $sum += $this->neurons[$k]->getWeights()[$j] *
                         $this->neurons[$k]->gradientor($errors[$k],
                             $this->neurons[$k]->derivativator(
                                 $this->neurons[$k]->output()), 0);
@@ -36,7 +27,7 @@ class OutputLayer extends Layer
             }
             for ($i = 0; $i < $this->numofneurons; ++$i)
                 for ($n = 0; $n < $this->numofprevneurons; ++$n)
-                    $this->neurons[$i]->getWights()[$n] += $this::LEARNINGRATE *
+                    $this->neurons[$i]->getWeights()[$n] += $this::LEARNINGRATE *
                         $this->neurons[$i]->getInputs()[$n]
                         * $this->neurons[$i]->gradientor($errors[$i],
                             $this->neurons[$i]->derivativator($this->neurons[$i]->output()), 0);
