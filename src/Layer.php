@@ -1,6 +1,8 @@
 <?php
-include "C:\Users\habar\PhpstormProjects\PHP_Photo_colouring_NN\src\Memory\hidden_layer_memory.xml";
-include "C:\Users\habar\PhpstormProjects\PHP_Photo_colouring_NN\src\Memory\output_layer_memory.xml";
+include "C:\Users\habar\PhpstormProjects\PHP_Photo_colouring_NN\src\hidden_layer_memory.csv";
+include "C:\Users\habar\PhpstormProjects\PHP_Photo_colouring_NN\src\output_layer_memory.csv";
+include "C:\Users\habar\PhpstormProjects\PHP_Photo_colouring_NN\src\MemoryMode.php";
+include "C:\Users\habar\PhpstormProjects\PHP_Photo_colouring_NN\src\Neuron.php";
 
 
 abstract class Layer
@@ -20,7 +22,7 @@ abstract class Layer
         }
     }
 
-    public function __construct($non, $nopn, NeuronType $nt, $type)
+    public function __construct($non, $nopn, $nt, $type)
     {
         {
             $this->numofneurons = $non;
@@ -56,36 +58,31 @@ abstract class Layer
     public function WeightInitialize($mm, $type)
     {
         $_weights = array(array(), array());
-        print_r("$type weights are being initialized...");
-        $memory_doc = simplexml_load_file("$type" . "_memory.xml");
-        $memory_el = new SimpleXMLElement($memory_doc);
-        $index = 0;
+        print_r("$type weights are being initialized...<br>");
+        $memory_doc = fopen("$type" . "_memory.csv", "w+");
         switch ($mm) {
             case MemoryMode::GET:
                 for ($l = 0; $l < $this->numofneurons; ++$l) {
                     for ($k = 0; $k < $this->numofprevneurons; ++$k) {
-                        $_weights[$l][$k] = $memory_el->children()[$index];
-                        $index += 1;
+                        $_weights[$l][$k] = fgetcsv($memory_doc, 8, ",");
                     }
                 }
                 break;
             case MemoryMode::SET:
                 for ($l = 0; $l < sizeof($this->neurons); ++$l) {
                     for ($k = 0; $k < $this->numofprevneurons; ++$k) {
-     //                   $memory_el = 0;
-                        $index += 1;
+                        fputcsv($memory_doc, explode(',', $this->neurons[$l]->weights[$k]));
                     }
                 }
                 break;
         }
-        $memory_doc->saveXML($memory_el);
-        print_r("$type weights have been initialized...");
+        print_r("$type weights have been initialized...<br>");
         {
             return $_weights;
         }
     }
 
-    abstract public function recognize(Network $net, Layer $nextLayer);//для прямых проходов
+    abstract public function recognize($net, Layer $nextLayer);//для прямых проходов
 
     abstract public function backwardPass($stuff);//и обратных
 

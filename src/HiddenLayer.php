@@ -1,9 +1,9 @@
 <?php
-
+require_once "C:\Users\habar\PhpstormProjects\PHP_Photo_colouring_NN\src\Layer.php";
 class HiddenLayer extends Layer
 {
 
-    public function recognize(Network $net, Layer $nextLayer)
+    public function recognize($net, Layer $nextLayer)
     {
         $hidden_out = array();
         for ($i = 0; $i < sizeof($this->neurons); ++$i) {
@@ -22,7 +22,7 @@ class HiddenLayer extends Layer
             for ($n = 0; $n < $this->numofprevneurons; ++$n) {
                 $this->neurons[$i]->getWeights()[$n] += $this::LEARNINGRATE *
                     $this->neurons[$i]->getInputs()[$n] *
-                    $this->neurons[$i]->gradientor(0, $this->neurons[$i]->derivativator($this->neurons[$i]->output),
+                    $this->neurons[$i]->gradientor(0, $this->neurons[$i]->derivativator($this->neurons[$i]->output()),
                         $gr_sums[$i]);
             }
         }//коррекция весов

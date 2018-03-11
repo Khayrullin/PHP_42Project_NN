@@ -6,7 +6,7 @@ class Neuron
     private $_weights;
     private $_inputs;
 
-    public function __construct(array $inputs, array $weights, $type)
+    public function __construct($inputs, array $weights, $type)
     {
         $this->_type = $type;
         $this->_weights = $weights;
