@@ -28,7 +28,7 @@ abstract class Layer
             $this->numofneurons = $non;
             $this->numofprevneurons = $nopn;
             $this->setNeurons(array());
-            $weights = $this->WeightInitialize(MemoryMode::GET, $type);
+            $weights = $this->weightInitialize(MemoryMode::GET, $type);
             for ($i = 0; $i < $non; ++$i) {
                 $temp_weights = array();
                 for ($j = 0; $j < $nopn; ++$j) {
@@ -55,7 +55,7 @@ abstract class Layer
         $this->neurons = $neurons;
     }
 
-    public function WeightInitialize($mm, $type)
+    public function weightInitialize($mm, $type)
     {
         $_weights = array(array(), array());
         print_r("$type weights are being initialized...<br>");
