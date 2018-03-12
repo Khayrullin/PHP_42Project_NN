@@ -3,7 +3,7 @@ require_once "C:\Users\habar\PhpstormProjects\PHP_Photo_colouring_NN\src\Layer.p
 class HiddenLayer extends Layer
 {
 
-    public function recognize($net, Layer $nextLayer)
+    public function recognize($net, $nextLayer)
     {
         $hidden_out = array();
         for ($i = 0; $i < sizeof($this->neurons); ++$i) {

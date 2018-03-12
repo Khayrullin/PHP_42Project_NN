@@ -13,25 +13,38 @@ class Neuron
         $this->_inputs = $inputs;
     }
 
-    public function getWeights($key)
+    /**
+     * @return array
+     */
+    public function getWeights(): array
     {
-        return $this->_weights[$key];
+        return $this->_weights;
     }
 
-    public function setWeights($key, $value)
+    /**
+     * @param array $weights
+     */
+    public function setWeights(array $weights)
     {
-        $this->_weights[$key] = $value;
+        $this->_weights = $weights;
     }
 
-    public function getInputs($key)
+    /**
+     * @return array
+     */
+    public function getInputs(): array
     {
-        return $this->_inputs[$key];
+        return $this->_inputs;
     }
 
-    public function setInputs($key, $value)
+    /**
+     * @param array $inputs
+     */
+    public function setInputs(array $inputs)
     {
-        $this->_inputs[$key] = $value;
+        $this->_inputs = $inputs;
     }
+
 
     public function output()
     {

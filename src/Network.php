@@ -49,13 +49,16 @@ class Network
         $temp_mses = array();
         do {
             for ($i = 0; $i < count($net->input_layer->getTrainset()); ++$i) {
-                $net->hidden_layer->setData($net->input_layer->getTrainset()[$i]->Item1);
+                print("<br>");
+                print_r($net->input_layer->getTrainset()[$i]);
+                print("<br>");
+                $net->hidden_layer->setData($net->input_layer->getTrainset()[$i][0]);
                 $net->hidden_layer->recognize(null, $net->output_layer);
                 $net->output_layer->recognize($net, null);
 
                 $errors = [];
-                for ($x = 0; $x < count($net->input_layer->getTrainset()[$i]->Item2); ++$x) {
-                    $errors[$x] = $net->input_layer->getTrainset()[$i]->Item2[$x] - $net->fact[$x];
+                for ($x = 0; $x < count($net->input_layer->getTrainset()[$i][1]); ++$x) {
+                    $errors[$x] = $net->input_layer->getTrainset()[$i][1][$x] - $net->fact[$x];
                 }
                 $temp_mses[$i] = $net->getMSE($errors);
                 //обратный проход и коррекция весов
@@ -75,7 +78,7 @@ class Network
     {
 
         for ($i = 0; $i < count($net->input_layer->getTrainset()); ++$i) {
-            $net->hidden_layer->Data = $net->input_layer->getTrainset()[$i]->Item1;
+            $net->hidden_layer->setData($net->input_layer->getTrainset()[$i][0]);
             $net->hidden_layer->recognize(null, $net->output_layer);
             $net->output_layer->recognize($net, null);
             for ($j = 0; $j < count($net->fact); ++$j) {

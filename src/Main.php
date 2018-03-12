@@ -13,4 +13,8 @@ function main()
     Network::test($net);
 }
 
-main();
+try{
+    main();
+} catch (Exception $e){
+    $e->getMessage();
+}

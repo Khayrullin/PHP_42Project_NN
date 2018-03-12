@@ -18,7 +18,7 @@ abstract class Layer
     public function setData($data)
     {
         for ($i = 0; $i < sizeof($this->neurons); ++$i) {
-            $this->neurons[$i] = $data;
+            $this->neurons[$i]->setInputs($data);
         }
     }
 
@@ -59,12 +59,14 @@ abstract class Layer
     {
         $_weights = array(array(), array());
         print_r("$type weights are being initialized...<br>");
-        $memory_doc = fopen("$type" . "_memory.csv", "w+");
+        $memory_doc = fopen("$type" . "_memory.csv", "r+");
         switch ($mm) {
             case MemoryMode::GET:
                 for ($l = 0; $l < $this->numofneurons; ++$l) {
                     for ($k = 0; $k < $this->numofprevneurons; ++$k) {
-                        $_weights[$l][$k] = fgetcsv($memory_doc, 8, ",");
+                        $_weights[$l][$k] = fgetcsv($memory_doc, 8)[0];
+                        print_r($_weights);
+                        print ("<br>");
                     }
                 }
                 break;
@@ -82,7 +84,7 @@ abstract class Layer
         }
     }
 
-    abstract public function recognize($net, Layer $nextLayer);//для прямых проходов
+    abstract public function recognize($net, $nextLayer);//для прямых проходов
 
     abstract public function backwardPass($stuff);//и обратных
 

@@ -5,7 +5,7 @@ class OutputLayer extends Layer
 {
 
 
-    public function recognize($net, Layer $nextLayer)
+    public function recognize($net, $nextLayer)
     {
         for ($i = 0; $i < sizeof($this->neurons); ++$i) {
             $net->fact[$i] = $this->neurons[$i]->output();
