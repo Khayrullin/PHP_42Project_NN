@@ -7,10 +7,12 @@ include "C:\Users\habar\PhpstormProjects\PHP_Photo_colouring_NN\src\Neuron.php";
 
 abstract class Layer
 {
-    const LEARNINGRATE = 0.1;
+    //   const LEARNINGRATE = 0.1;
+    const LEARNINGRATE = 1;
     protected $numofneurons;
     protected $numofprevneurons;
     protected $neurons;
+    protected $memory_doc = false;
 
     /**
      * @param mixed $data
@@ -59,29 +61,29 @@ abstract class Layer
     {
         $_weights = array(array(), array());
         print_r("$type weights are being initialized...<br>");
-        $memory_doc = fopen("$type" . "_memory.csv", "r+");
         switch ($mm) {
             case MemoryMode::GET:
+                $this->memory_doc = fopen("$type" . "_memory.csv", "r");
                 for ($l = 0; $l < $this->numofneurons; ++$l) {
                     for ($k = 0; $k < $this->numofprevneurons; ++$k) {
-                        $_weights[$l][$k] = fgetcsv($memory_doc, 8)[0];
-                        print_r($_weights);
-                        print ("<br>");
+                        $_weights[$l][$k] = fgetcsv($this->memory_doc, 8)[0];
                     }
                 }
                 break;
             case MemoryMode::SET:
+                $this->memory_doc = fopen("$type" . "_memory.csv", "w");
                 for ($l = 0; $l < sizeof($this->neurons); ++$l) {
                     for ($k = 0; $k < $this->numofprevneurons; ++$k) {
-                        fputcsv($memory_doc, explode(',', $this->neurons[$l]->weights[$k]));
+                        fputcsv($this->memory_doc, explode(',', $this->neurons[$l]->getWeights()[$k]));
                     }
                 }
+
                 break;
         }
+        fclose($this->memory_doc);
+
         print_r("$type weights have been initialized...<br>");
-        {
-            return $_weights;
-        }
+        return $_weights;
     }
 
     abstract public function recognize($net, $nextLayer);//для прямых проходов

@@ -46,12 +46,12 @@ class Network
 
     static function train(Network $net)
     {
+        $fff = 0;
+        $index = 0;
+
         $temp_mses = array();
         do {
             for ($i = 0; $i < count($net->input_layer->getTrainset()); ++$i) {
-                print("<br>");
-                print_r($net->input_layer->getTrainset()[$i]);
-                print("<br>");
                 $net->hidden_layer->setData($net->input_layer->getTrainset()[$i][0]);
                 $net->hidden_layer->recognize(null, $net->output_layer);
                 $net->output_layer->recognize($net, null);
@@ -59,17 +59,21 @@ class Network
                 $errors = [];
                 for ($x = 0; $x < count($net->input_layer->getTrainset()[$i][1]); ++$x) {
                     $errors[$x] = $net->input_layer->getTrainset()[$i][1][$x] - $net->fact[$x];
+                       print ($net->input_layer->getTrainset()[$i][1][$x] . " - " . $net->fact[$x] . "<br>");
                 }
+
                 $temp_mses[$i] = $net->getMSE($errors);
                 //обратный проход и коррекция весов
                 $temp_gsums = $net->output_layer->backwardPass($errors);
                 $net->hidden_layer->backwardPass($temp_gsums);
             }
             $temp_cost = $net->getCost($temp_mses);//вычисление ошибки по эпохе
+            $index += 1;
+            //ВОТ ЗДЕСЬ РАБОТАЕТ ТОЛЬКО ЕСЛИ 0.19 , 0.18 уже лаг. Оригинал должен быть:
+            //  } while ($temp_cost > Network::THRESHOLD);
+        } while($temp_cost > 0.19);
 
-            echo $temp_cost;
-        } while ($temp_cost > Network::THRESHOLD);
-
+        print($fff);
         $net->hidden_layer->weightInitialize('SET', "hidden_layer");
         $net->output_layer->weightInitialize('SET', "output_layer");
     }
@@ -82,9 +86,9 @@ class Network
             $net->hidden_layer->recognize(null, $net->output_layer);
             $net->output_layer->recognize($net, null);
             for ($j = 0; $j < count($net->fact); ++$j) {
-                var_dump($net->fact[$j]);
+                print($net->fact[$j]);
             }
-            echo "<br>";
+            print("<br>");
         }
     }
 

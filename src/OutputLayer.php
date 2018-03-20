@@ -26,13 +26,16 @@ class OutputLayer extends Layer
 
             $gr_sum[$j] = $sum;
         }
+
         for ($i = 0; $i < $this->numofneurons; ++$i) {
+            $narr = $this->neurons[$i]->getWeights();
             for ($n = 0; $n < $this->numofprevneurons; ++$n) {
-                $this->neurons[$i]->getWeights()[$n] += $this::LEARNINGRATE *
+                $narr[$n] += $this::LEARNINGRATE *
                     $this->neurons[$i]->getInputs()[$n]
                     * $this->neurons[$i]->gradientor($errors[$i],
                         $this->neurons[$i]->derivativator($this->neurons[$i]->output()), 0);
             }
+            $this->neurons[$i]->setWeights($narr);
         }
         return $gr_sum;
     }

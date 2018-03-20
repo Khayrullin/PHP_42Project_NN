@@ -19,12 +19,14 @@ class HiddenLayer extends Layer
         //но градиенты будут вычисляться по-другому, то есть
         //через градиентные суммы следующего слоя и производные
         for ($i = 0; $i < $this->numofneurons; ++$i) {
+            $narr = $this->neurons[$i]->getWeights();
             for ($n = 0; $n < $this->numofprevneurons; ++$n) {
-                $this->neurons[$i]->getWeights()[$n] += $this::LEARNINGRATE *
+                $narr[$n] += $this::LEARNINGRATE *
                     $this->neurons[$i]->getInputs()[$n] *
                     $this->neurons[$i]->gradientor(0, $this->neurons[$i]->derivativator($this->neurons[$i]->output()),
                         $gr_sums[$i]);
             }
+            $this->neurons[$i]->setWeights($narr);
         }//коррекция весов
         return $gr_sum;
     }
