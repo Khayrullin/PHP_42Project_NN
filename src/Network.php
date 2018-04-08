@@ -76,9 +76,9 @@ class Network
        $net->hidden_layer->recognize($net, $net->output_layer);
        $net->output_layer->recognize($net, $net->output_layer);
        for ($j = 0; $j < count($net->fact); $j++) {
-        print($net->fact[$j]."\n");
+        print($net->fact[$j]."\r\n");
        }
-       print("\n");
+       print("\r\n");
       }
      }
 }
