@@ -1,72 +1,57 @@
 <?php
+class Neuron {
+     private $_type;
+     private $_weights;
+     private $_inputs;
 
-class Neuron
-{
-    private $_type;
-    private $_weights;
-    private $_inputs;
-
-    public function __construct($inputs, array $weights, $type)
+    public function __construct(array $inputs, array $weights, $type)
     {
-        $this->_type = $type;
-        $this->_weights = $weights;
-        $this->_inputs = $inputs;
+     $this->_type = $type;
+     $this->_weights = $weights;
+     $this->_inputs = $inputs;
     }
 
-    /**
-     * @return array
-     */
-    public function getWeights(): array
+    public function getWeights($key)
     {
-        return $this->_weights;
+     return $this->_weights[$key];
     }
 
-    /**
-     * @param array $weights
-     */
-    public function setWeights(array $weights)
+    public function setWeights($key,$value)
     {
-        $this->_weights = $weights;
+     $this->_weights[$key] = $value;
     }
 
-    /**
-     * @return array
-     */
-    public function getInputs(): array
+    public function getInputs($key)
     {
-        return $this->_inputs;
+     return $this->_inputs[$key];
     }
 
-    /**
-     * @param array $inputs
-     */
-    public function setInputs(array $inputs)
+    public function setInputs($key,$value)
     {
-        $this->_inputs = $inputs;
+     $this->_inputs[$key] = $value;
     }
-
 
     public function output()
     {
-        return $this->activator($this->_inputs, $this->_weights);
+     return $this->Activator($this->_inputs, $this->_weights);
     }
 
-    private function activator($i, $w)
+    private function Activator($i, $w)
     {
-        $sum = 0;
-        for ($l = 0; $l < count($i); $l++) {
-            $sum = $sum + $i[$l] * $w[$l];
-        }
-        return pow(1 + exp(0 - $sum), -1);
+     $sum = 0;
+     for ($l = 0; $l < count($i); $l++) {
+        $sum = $sum + $i[$l] * $w[$l];
+     }
+     return pow(1 + exp(0 - $sum), -1);
     }
 
     public function derivativator($outsignal)
     {
-        return $outsignal * (1 - $outsignal);
+     return $outsignal * (1 - $outsignal);
     }
 
     public function gradientor($error, $dif, $g_sum)
     {
-        return ($this->_type == NeuronType::Output) ? $error * $dif : $g_sum * $dif;
+     return ($this->_type==NeuronType::Output) ? $error * $dif : $g_sum * $dif;
     }
 }

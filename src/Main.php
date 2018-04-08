@@ -9,8 +9,8 @@ require_once "C:\Users\habar\PhpstormProjects\PHP_Photo_colouring_NN\src\Network
 function main()
 {
     $net = new Network();
-    Network::train($net);
-    Network::test($net);
+    $net->train($net);
+    $net->test($net);
 }
 
 try{
