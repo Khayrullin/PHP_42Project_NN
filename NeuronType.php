@@ -1,5 +1,5 @@
 <?php
-    abstract class NeuronType {
+abstract class NeuronType {
      const Hidden = "Hidden";
      const Output = "Output";
 }
