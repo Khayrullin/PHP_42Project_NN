@@ -1,20 +1,18 @@
 <?php
+class InputLayer {
 
-class InputLayer
-{
-    private $trainset = array(
-        array(array(0, 0), array(0, 1)),
-        array(array(0, 1), array(1, 0)),
-        array(array(1, 0), array(1, 0)),
-        array(array(1, 1), array(0, 1))
-    );
+     private $_trainset=array(array(array(0,0),array(0,1)),
+			     array(array(0,1),array(1,0)),
+			     array(array(1,0),array(1,0)),
+			     array(array(1,1),array(0,1)));
+    public function getTrainset($key)
+     {
+      return $this->_trainset[$key];
+     }
 
-
-    /**
-     * @return array
-     */
-    public function getTrainset()
-    {
-        return $this->trainset;
-    }
+    public function getCountTrainset()
+     {
+      return count($this->_trainset);
+     }
 }
+?>

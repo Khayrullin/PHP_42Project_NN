@@ -1,7 +1,7 @@
 <?php
 
-abstract class MemoryMode
-{
-    const GET = "GET";
-    const SET = "SET";
+abstract class MemoryMode {
+     const GET = "GET";
+     const SET = "SET";
 }
+?>
