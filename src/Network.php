@@ -59,7 +59,7 @@ class Network
                 $errors = [];
                 for ($x = 0; $x < count($net->input_layer->getTrainset()[$i][1]); ++$x) {
                     $errors[$x] = $net->input_layer->getTrainset()[$i][1][$x] - $net->fact[$x];
-                       print ($net->input_layer->getTrainset()[$i][1][$x] . " - " . $net->fact[$x] . "<br>");
+                      // print ($net->input_layer->getTrainset()[$i][1][$x] . " - " . $net->fact[$x] . "<br>");
                 }
 
                 $temp_mses[$i] = $net->getMSE($errors);
@@ -71,7 +71,7 @@ class Network
             $index += 1;
             //ВОТ ЗДЕСЬ РАБОТАЕТ ТОЛЬКО ЕСЛИ 0.19 , 0.18 уже лаг. Оригинал должен быть:
             //  } while ($temp_cost > Network::THRESHOLD);
-        } while($temp_cost > 0.19);
+        } while($temp_cost > 0.5);
 
         print($fff);
         $net->hidden_layer->weightInitialize('SET', "hidden_layer");
