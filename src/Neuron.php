@@ -1,57 +1,77 @@
 <?php
-class Neuron {
-     private $_type;
-     private $_weights;
-     private $_inputs;
+
+class Neuron
+{
+    private $_type;
+    private $_weights;
+    private $_inputs;
+    private $_output;
+    private $_derivative;
+    private $a = 0.01;
 
     public function __construct(array $inputs, array $weights, $type)
     {
-     $this->_type = $type;
-     $this->_weights = $weights;
-     $this->_inputs = $inputs;
+        $this->_type = $type;
+        $this->_weights = $weights;
+        $this->_inputs = $inputs;
     }
 
     public function getWeights($key)
     {
-     return $this->_weights[$key];
+        return $this->_weights[$key];
     }
 
-    public function setWeights($key,$value)
+    public function setWeights($key, $value)
     {
-     $this->_weights[$key] = $value;
+        $this->_weights[$key] = $value;
     }
 
     public function getInputs($key)
     {
-     return $this->_inputs[$key];
+        return $this->_inputs[$key];
     }
 
-    public function setInputs($key,$value)
+    public function setInputs($key, $value)
     {
-     $this->_inputs[$key] = $value;
+        $this->_inputs[$key] = $value;
     }
 
-    public function output()
+    public function getOutput($key)
     {
-     return $this->Activator($this->_inputs, $this->_weights);
+        return $this->_output[$key];
     }
 
     private function Activator($i, $w)
     {
-     $sum = 0;
-     for ($l = 0; $l < count($i); $l++) {
-        $sum = $sum + $i[$l] * $w[$l];
-     }
-     return pow(1 + exp(0 - $sum), -1);
+        $sum = $w[0];
+        for ($l = 0; $l < count($i); $l++) {
+            $sum += $i[$l] * $w[$l + 1];
+        }
+        switch ($this->_type)
+        {
+            case NeuronType::Hidden:
+                $this->_output = $this->LeakyReLU($sum);
+                $this->_derivative = $this->LeakyReLU_Derivativator($sum);
+                break;
+            case NeuronType::Output:
+                $this->_output = exp($sum);
+                break;
+        }
+        return pow(1 + exp(0 - $sum), -1);
     }
 
-    public function derivativator($outsignal)
+    public function getDerivative()
     {
-     return $outsignal * (1 - $outsignal);
+        return $this->_derivative;
     }
 
-    public function gradientor($error, $dif, $g_sum)
+    public function LeakyReLU($sum)
     {
-     return ($this->_type==NeuronType::Output) ? $error * $dif : $g_sum * $dif;
+        return ($sum >= 0) ? $sum : $this->a * $sum;
+    }
+
+    public function LeakyReLU_Derivativator($sum)
+    {
+        return ($sum >= 0) ? 1: $this->a;
     }
 }
