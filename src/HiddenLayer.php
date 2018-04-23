@@ -37,12 +37,12 @@ class HiddenLayer extends Layer
                         $this->momentum *
                         $this->lastdeltaweights[$i][$n] +
                         $this->learningrate *
-                        $this->getNeurons($i)->getInputs(n - 1) *
+                        $this->getNeurons($i)->getInputs($n - 1) *
                         $this->getNeurons($i)->getDerivative() *
                         $gr_sums[$i]
                     );
                 $this->lastdeltaweights[$i][$n] = $deltaw;
-                $this->getNeurons($i)->setWeights[$n] += $deltaw;
+                $this->getNeurons($i)->setWeights($n, $this->getNeurons($i)->getWeights($n) + $deltaw);
             }
         }
         return $gr_sum;
