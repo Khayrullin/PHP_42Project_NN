@@ -4,7 +4,7 @@ spl_autoload_register(function ($class_name) {
     include $class_name . '.php';
 });
 
-ini_set("max_execution_time", "600");
+ini_set("max_execution_time", "2000");
 $start = microtime(true);
 
 $net = new Network(NetworkMode::TRAIN);

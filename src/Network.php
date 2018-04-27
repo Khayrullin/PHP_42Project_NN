@@ -29,6 +29,7 @@ class Network
     {
         $epoches = 1200;
         for ($k = 0; $k < $epoches; ++$k) {
+            print ("K - epochs = ".$k."<br>");
             for ($i = 0; $i < $net->input_layer->getCountTrainset(); ++$i) {
                 //прямой проход
                 $this->forwardPass($net, $net->input_layer->getTrainset($i)[0]);
