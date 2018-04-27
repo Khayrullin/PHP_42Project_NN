@@ -18,10 +18,11 @@ class HiddenLayer extends Layer
         $gr_sum = null;
         for ($j = 0; $j < count($gr_sum); ++$j) {
             $sum = 0;
-            for ($k = 0; $k < $this->numofneurons; ++$k)
+            for ($k = 0; $k < $this->numofneurons; ++$k) {
                 $sum += $this->getNeurons($k)->getWeights($j) *
                     $this->getNeurons($k)->getDerivative() *
-                    $gr_sums[$k];//через градиентные суммы и производную
+                    $gr_sums[$k];
+            }//через градиентные суммы и производную
             $gr_sum[$j] = $sum;
         }
         for ($i = 0; $i < $this->numofneurons; $i++) {

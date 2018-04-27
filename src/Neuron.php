@@ -47,8 +47,7 @@ class Neuron
         for ($l = 0; $l < count($i); $l++) {
             $sum += $i[$l] * $w[$l + 1];
         }
-        switch ($this->_type)
-        {
+        switch ($this->_type) {
             case NeuronType::Hidden:
                 $this->_output = $this->LeakyReLU($sum);
                 $this->_derivative = $this->LeakyReLU_Derivativator($sum);
@@ -72,6 +71,6 @@ class Neuron
 
     public function LeakyReLU_Derivativator($sum)
     {
-        return ($sum >= 0) ? 1: $this->a;
+        return ($sum >= 0) ? 1 : $this->a;
     }
 }

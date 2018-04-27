@@ -8,7 +8,7 @@ ini_set("max_execution_time", "600");
 $start = microtime(true);
 
 $net = new Network(NetworkMode::TRAIN);
-//$net->train($net);
+$net->train($net);
 
 $end = microtime(true);
 $time = $end-$start;

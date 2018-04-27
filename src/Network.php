@@ -34,15 +34,14 @@ class Network
                 $this->forwardPass($net, $net->input_layer->getTrainset($i)[0]);
                 //вычисление ошибки по итерации
                 $errors = array();
-                    for ($x = 0; $x < sizeof($errors) ; ++$x)
-                    {
-                        $errors[$x] = ($x == $net->input_layer->getTrainset($i)[1]) ? -($net->fact[$x] - 1.0) : -$net->fact[$x];
-                    }
-                    //обратный проход и коррекция весов
-                   $temp_gsums1 = $net->output_layer->backwardPass($errors);;
-                   $temp_gsums2 =$net->hidden_layer2->backwardPass($temp_gsums1);
-                $net->hidden_layer1->backwardPass($temp_gsums2);
+                for ($x = 0; $x < sizeof($errors); ++$x) {
+                    $errors[$x] = ($x == $net->input_layer->getTrainset($i)[1]) ? -($net->fact[$x] - 1.0) : -$net->fact[$x];
                 }
+                //обратный проход и коррекция весов
+                $temp_gsums1 = $net->output_layer->backwardPass($errors);;
+                $temp_gsums2 = $net->hidden_layer2->backwardPass($temp_gsums1);
+                $net->hidden_layer1->backwardPass($temp_gsums2);
+            }
         }
 
         //загрузка скорректированных весов в "память"

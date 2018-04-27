@@ -24,25 +24,25 @@ class OutputLayer extends Layer
                 $gr_sum[$j] = $sum;
             }
         }
-            for ($i = 0; $i < $this->numofneurons; $i++) {
-                for ($n = 0; $n < $this->numofprevneurons + 1; $n++) {
-                    $deltaw = ($n == 0)
+        for ($i = 0; $i < $this->numofneurons; $i++) {
+            for ($n = 0; $n < $this->numofprevneurons + 1; $n++) {
+                $deltaw = ($n == 0)
 
-                        ?
+                    ?
 
-                        ($this->momentum * $this->lastdeltaweights[$i][0]
-                    + $this->learningrate * $errors[$i])
+                    ($this->momentum * $this->lastdeltaweights[$i][0]
+                        + $this->learningrate * $errors[$i])
 
-                        :
+                    :
 
                     ($this->momentum * $this->lastdeltaweights[$i][$n] +
-                    $this->learningrate *
-                    $this->getNeurons($i)->getInputs($n - 1)*
-                    $errors[$i]);
+                        $this->learningrate *
+                        $this->getNeurons($i)->getInputs($n - 1) *
+                        $errors[$i]);
 
-                    $this->lastdeltaweights[$i][$n] = $deltaw;
-                    $this->getNeurons($i)->setWeights($n, $this->getNeurons($i)->getWeights($n) + $deltaw);//коррекция весов
-                }
+                $this->lastdeltaweights[$i][$n] = $deltaw;
+                $this->getNeurons($i)->setWeights($n, $this->getNeurons($i)->getWeights($n) + $deltaw);//коррекция весов
+            }
         }
         return $gr_sum;
     }
