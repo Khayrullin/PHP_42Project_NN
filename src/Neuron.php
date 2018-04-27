@@ -36,12 +36,12 @@ class Neuron
         $this->_inputs[$key] = $value;
     }
 
-    public function getOutput($key)
+    public function output()
     {
-        return $this->_output[$key];
+        return $this->_output;
     }
 
-    private function Activator($i, $w)
+    public function Activator($i, $w)
     {
         $sum = $w[0];
         for ($l = 0; $l < count($i); $l++) {

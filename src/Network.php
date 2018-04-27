@@ -16,9 +16,8 @@ class Network
     public $hidden_layer2;
     public $output_layer;
 
-    public function __construct(NetworkMode $mm)
+    public function __construct($mm)
     {
-        //TODO: Modify InputLayer Class
         $this->input_layer = new InputLayer($mm);
         $this->hidden_layer1 = new HiddenLayer(70, 15, NeuronType::Hidden, "hidden_layer1");
         $this->hidden_layer2 = new HiddenLayer(30, 70, NeuronType::Hidden, "hidden_layer2");

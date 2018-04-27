@@ -14,7 +14,7 @@ class OutputLayer extends Layer
         }
     }
 
-    public function backwardPass(array $errors)
+    public function backwardPass($errors)
     {
         $gr_sum = array();
         for ($j = 0; $j < $this->numofprevneurons; $j++) {

@@ -13,7 +13,7 @@ class HiddenLayer extends Layer
         $nextLayer->setData($hidden_out);
     }
 
-    public function backwardPass(array $gr_sums)
+    public function backwardPass($gr_sums)
     {
         $gr_sum = null;
         for ($j = 0; $j < count($gr_sum); ++$j) {

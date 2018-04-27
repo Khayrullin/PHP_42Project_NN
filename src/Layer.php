@@ -44,7 +44,7 @@ abstract class Layer
                 $this->getNeurons($i)->setInputs($j, $value[$j]);
                 $this->getNeurons($i)->activator(
                     $this->getNeurons($i)->getInputs($j),
-                    $this->getNeurons($i)->getWeigth($j));
+                    $this->getNeurons($i)->getWeights($j));
             }
         }
     }
@@ -80,5 +80,5 @@ abstract class Layer
 
     abstract public function recognize($net, $nextLayer);
 
-    abstract public function backwardPass(array $stuff);
+    abstract public function backwardPass($stuff);
 }
