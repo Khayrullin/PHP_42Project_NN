@@ -7,11 +7,13 @@ class OutputLayer extends Layer
     {
         $e_sum = 0;
         for ($i = 0; $i < $this->numofneurons; $i++) {
-            $e_sum += $this->getNeurons($i)->output();;
+            $e_sum += $this->getNeurons($i)->output();
+        }
             for ($i = 0; $i < $this->numofneurons; $i++) {
                 $net->fact[$i] = $this->getNeurons($i)->output() / $e_sum;
+               // print("net fact [".$i."] = ".$net->fact[$i]);
             }
-        }
+
     }
 
     public function backwardPass($errors)
